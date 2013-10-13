@@ -1,4 +1,4 @@
-![screenshot](https://raw.github.com/eduardgamiao/digits/master/doc/digits_example.png)
+![screenshot](https://raw.github.com/eduardgamiao/digits/Attempt1/doc/digits_example.png)
 
 Overview
 
