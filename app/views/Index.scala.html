@@ -1,7 +1,30 @@
-@(message: String)
-
-@Main("Home") {
-   <div class="container">
-     <p>@message</p> 
-   </div>
+@(message: String) @Main("Digits") {
+<div class="container">
+  <div class="row">
+  <div class="col-md-offset-3 col-md-6">
+  <table class="table table-striped">
+    <tr>
+      <td>First Name</td>
+      <td>Last Name</td>
+      <td>Telephone</td>
+    </tr>
+        <tr>
+      <td>John</td>
+      <td>Doe</td>
+      <td>000-000-0000</td>
+    </tr>
+        <tr>
+      <td>Jane</td>
+      <td>Doe</td>
+      <td>111-111-1111</td>
+    </tr>
+        <tr>
+      <td>First</td>
+      <td>Last</td>
+      <td>123-456-7890</td>
+    </tr>
+  </table>
+  </div>
+  </div>
+</div>
 }
