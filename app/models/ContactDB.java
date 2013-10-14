@@ -1,7 +1,8 @@
 package models;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import views.formdata.ContactFormData;
 
 /**
@@ -32,12 +33,18 @@ public class ContactDB {
    * Return a list of contacts.
    * @return A list of contacts.
    */
-  public static Collection<Contact> getContacts() {
-    return contactMap.values();
+  public static List<Contact> getContacts() {
+    return new ArrayList<Contact>(contactMap.values());
   }
   
   public static Contact getContact(long id) {
-    return contactMap.get(id);
+    Contact contact = contactMap.get(id);
+    if(contact == null) {
+      throw new RuntimeException("ID is not valid.");
+    }
+    else {
+      return contactMap.get(id);
+    }
   }
 
 }
