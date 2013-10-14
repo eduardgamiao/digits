@@ -5,6 +5,9 @@ package models;
  */
 public class Contact {
   
+  /** ID Field. */
+  private long id;
+  
   /** First name. */
   private String firstName;  
   
@@ -20,7 +23,8 @@ public class Contact {
    * @param last  Last name.
    * @param tele  Telephone.
    */
-  public Contact(String first, String last, String tele) {
+  public Contact(long id, String first, String last, String tele) {
+    this.id = id;
     this.firstName = first;
     this.lastName = last;
     this.telephone = tele;
@@ -72,6 +76,22 @@ public class Contact {
    */
   public void setTelephone(String telephone) {
     this.telephone = telephone;
+  }
+
+  /**
+   * Return ID of contact.
+   * @return The ID of contact.
+   */
+  public long getID() {
+    return id;
+  }
+
+  /**
+   * Set ID of contact.
+   * @param id The ID to set of contact.
+   */
+  public void setID(long id) {
+    this.id = id;
   }
   
 
