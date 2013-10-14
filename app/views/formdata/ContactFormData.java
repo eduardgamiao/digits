@@ -10,6 +10,8 @@ import play.data.validation.ValidationError;
  */
 public class ContactFormData {
   private static final int TELEPHONE_INPUT_SIZE = 12;
+  private static final int ADDRESS_INPUT_SIZE = 25;
+
   
   /** ID field */
   public long id = 0;
@@ -23,6 +25,9 @@ public class ContactFormData {
   /** Telephone field. */
   public String telephone = "";
   
+  /** Address field. */
+  public String address = "";
+  
   /** Constructor. */
   public ContactFormData() {
     
@@ -34,6 +39,7 @@ public class ContactFormData {
     this.firstName = contact.getFirstName();
     this.lastName = contact.getLastName();
     this.telephone = contact.getTelephone();
+    this.address = contact.getAddress();
   }
   
   /**
@@ -46,14 +52,20 @@ public class ContactFormData {
     if (firstName == null || firstName.length() == 0) {
       errors.add(new ValidationError("firstName", "First Name is required."));
     }
-    else if (lastName == null || lastName.length() == 0) {
+    if (lastName == null || lastName.length() == 0) {
       errors.add(new ValidationError("lastName", "Last Name is required."));
     }
-    else if (telephone == null || telephone.length() == 0) {
+    if (telephone == null || telephone.length() == 0) {
       errors.add(new ValidationError("telephone", "Telephone is required."));
     }
-    else if (telephone.length() != TELEPHONE_INPUT_SIZE) {
+    if (telephone.length() != TELEPHONE_INPUT_SIZE) {
       errors.add(new ValidationError("telephone", "Telephone must be formatted as xxx-xxx-xxxx."));
+    }
+    if (address == null || address.length() == 0) {
+      errors.add(new ValidationError("address", "Address is required."));
+    }
+    if (address.length() <= ADDRESS_INPUT_SIZE) {
+      errors.add(new ValidationError("address", "Address must be at least 25 characters long.")); 
     }
     
     return errors.isEmpty() ? null : errors;

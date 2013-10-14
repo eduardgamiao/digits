@@ -20,11 +20,11 @@ public class ContactDB {
     Contact contact;
     if(data.id == 0) {
       long id = contactMap.size() + 1;
-      contact = new Contact(id, data.firstName, data.lastName, data.telephone);
+      contact = new Contact(id, data.firstName, data.lastName, data.telephone, data.address);
       contactMap.put(id, contact);
     }
     else {
-      contact = new Contact(data.id, data.firstName, data.lastName, data.telephone);
+      contact = new Contact(data.id, data.firstName, data.lastName, data.telephone, data.address);
       contactMap.put(contact.getID(), contact);
     }
   }

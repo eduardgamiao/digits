@@ -16,6 +16,9 @@ public class Contact {
   
   /** First name. */
   private String telephone;
+  
+  /** Address. */
+  private String address;
 
   /**
    * Constructor.
@@ -23,11 +26,12 @@ public class Contact {
    * @param last  Last name.
    * @param tele  Telephone.
    */
-  public Contact(long id, String first, String last, String tele) {
+  public Contact(long id, String first, String last, String tele, String address) {
     this.id = id;
     this.firstName = first;
     this.lastName = last;
     this.telephone = tele;
+    this.address = address;
   }
   
   /**
@@ -92,6 +96,22 @@ public class Contact {
    */
   public void setID(long id) {
     this.id = id;
+  }
+
+  /**
+   * Return address for contact.
+   * @return the address
+   */
+  public String getAddress() {
+    return address;
+  }
+
+  /**
+   * Set address of contact
+   * @param address the address to set
+   */
+  public void setAddress(String address) {
+    this.address = address;
   }
   
 
