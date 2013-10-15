@@ -1,4 +1,5 @@
-![screenshot](doc/output.png)
+![screenshot](doc/output_main.png)
+![screenshot](doc/output_form.png)
 
 Overview
 
