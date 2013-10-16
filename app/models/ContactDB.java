@@ -1,6 +1,7 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import views.formdata.ContactFormData;
 
@@ -9,7 +10,7 @@ import views.formdata.ContactFormData;
  */
 public class ContactDB {
 
-  static List<Contact> contacts = new ArrayList<Contact>();
+  private static HashMap<Long, Contact> contacts = new HashMap<Long, Contact>();
   
   /**
    * Add contact.
@@ -17,9 +18,18 @@ public class ContactDB {
    * @return The contact created.
    */
   public static Contact addContact(ContactFormData dataForm) {
-    Contact contact = new Contact(dataForm.firstName, dataForm.lastName, dataForm.telephone);
-    contacts.add(contact);
-    return contact;
+    Contact contact;
+    if (dataForm.id == 0) {
+      long id = contacts.size() + 1;
+      contact = new Contact(id, dataForm.firstName, dataForm.lastName, dataForm.telephone);
+      contacts.put(id, contact);
+      return contact;
+    }
+    else {
+      contact = new Contact(dataForm.id, dataForm.firstName, dataForm.lastName, dataForm.telephone);
+      contacts.put(contact.getID(), contact);
+      return contact;      
+    }
   }
   
   /**
@@ -27,7 +37,22 @@ public class ContactDB {
    * @return List of contacts.
    */
   public static List<Contact> getContacts() {
-    return contacts;
+    return new ArrayList<Contact>(contacts.values());
+  }
+  
+  /**
+   * Return contact with matching ID.
+   * @param id The ID to be matched.
+   * @return The contact with the matching ID.
+   */
+  public static Contact getContact(long id) {
+    Contact contact = contacts.get(id);
+    if (contact == null) {
+      throw new RuntimeException("Contact ID is not valid.");
+    }
+    else {
+      return contact;
+    }
   }
   
 }

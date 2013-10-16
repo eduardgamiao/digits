@@ -4,23 +4,20 @@ package models;
  * A contact model from the form data.
  */
 public class Contact {
-
-  /** First name. */
   private String firstName;
-  
-  /** Last name. */
   private String lastName;
-  
-  /** Telehone. */
   private String telephone;
+  private Long id;
   
   /**
    * Constructor.
+   * @param id ID.
    * @param firstName First name.
    * @param lastName Last name.
    * @param telephone Telephone.
    */
-  public Contact(String firstName, String lastName, String telephone) {
+  public Contact(long id, String firstName, String lastName, String telephone) {
+    this.setID(id);
     this.firstName = firstName;
     this.lastName = lastName;
     this.telephone = telephone;
@@ -72,5 +69,21 @@ public class Contact {
    */
   public void setTelephone(String telephone) {
     this.telephone = telephone;
+  }
+
+  /**
+   * Return ID.
+   * @return The ID.
+   */
+  public Long getID() {
+    return id;
+  }
+
+  /**
+   * Set the ID.
+   * @param id ID to be set.
+   */
+  public void setID(Long id) {
+    this.id = id;
   }
 }
