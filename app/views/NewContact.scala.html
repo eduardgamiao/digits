@@ -1,19 +1,35 @@
-@(message: String) @Main("New Contact") {
+@(contactForm: Form[views.formdata.ContactFormData])
+
+@import helper._
+
+@Main("New Contact") {
 <div class="container">
-  <form role="form">
+    @form(routes.Application.postContact(), 'class -> "form-horizontal") {
     <div class="form-group">
-      <label for="firstName">First Name</label> <input type="text" class="form-control" id="firstName"
+      <label for="firstName">First Name</label> <input type="text" class="form-control" 
+        name="@contactForm("firstName").name"
+        id="@contactForm("firstName").id"
+        value="@contactForm("firstName").value"
         placeholder="First Name">
     </div>
+
     <div class="form-group">
-      <label for="lastName">Last Name</label> <input type="text" class="form-control" id="lastName"
+      <label for="lastName">Last Name</label> <input type="text" class="form-control" 
+        name="@contactForm("lastName").name"
+        id="@contactForm("lastName").id"
+        value="@contactForm("lastName").value"
         placeholder="Last Name">
     </div>
+
     <div class="form-group">
-      <label for="telephone">Telephone</label> <input type="text" class="form-control" id="telephone"
+      <label for="telephone">Telephone</label> <input type="text" class="form-control" 
+        name="@contactForm("telephone").name"
+        id="@contactForm("telephone").id"
+        value="@contactForm("telephone").value"
         placeholder="Telephone">
     </div>
+    
     <button type="submit" class="btn btn-default">Submit</button>
-  </form>
+    }
 </div>
 }
