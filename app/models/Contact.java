@@ -8,6 +8,7 @@ public class Contact {
   private String lastName;
   private String telephone;
   private Long id;
+  private String address;
   
   /**
    * Constructor.
@@ -15,12 +16,14 @@ public class Contact {
    * @param firstName First name.
    * @param lastName Last name.
    * @param telephone Telephone.
+   * @param address Address.
    */
-  public Contact(long id, String firstName, String lastName, String telephone) {
+  public Contact(long id, String firstName, String lastName, String telephone, String address) {
     this.setID(id);
     this.firstName = firstName;
     this.lastName = lastName;
     this.telephone = telephone;
+    this.setAddress(address);
   }
 
   /**
@@ -85,5 +88,21 @@ public class Contact {
    */
   public void setID(Long id) {
     this.id = id;
+  }
+
+  /**
+   * Return the address.
+   * @return The address.
+   */
+  public String getAddress() {
+    return address;
+  }
+
+  /**
+   * Set the address.
+   * @param address The address to set to.
+   */
+  public void setAddress(String address) {
+    this.address = address;
   }
 }

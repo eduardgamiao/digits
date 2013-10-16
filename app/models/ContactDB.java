@@ -21,12 +21,12 @@ public class ContactDB {
     Contact contact;
     if (dataForm.id == 0) {
       long id = contacts.size() + 1;
-      contact = new Contact(id, dataForm.firstName, dataForm.lastName, dataForm.telephone);
+      contact = new Contact(id, dataForm.firstName, dataForm.lastName, dataForm.telephone, dataForm.address);
       contacts.put(id, contact);
       return contact;
     }
     else {
-      contact = new Contact(dataForm.id, dataForm.firstName, dataForm.lastName, dataForm.telephone);
+      contact = new Contact(dataForm.id, dataForm.firstName, dataForm.lastName, dataForm.telephone, dataForm.address);
       contacts.put(contact.getID(), contact);
       return contact;      
     }

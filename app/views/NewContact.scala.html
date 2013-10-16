@@ -37,6 +37,15 @@
         <span class="help-block">@{contactForm("telephone").error.map {error => error.message}}</span>
     </div>
     
+        <div class="form-group if(contactForm("address").hasErrors {has-errors})">
+      <label for="telephone">Telephone</label> <input type="text" class="form-control" 
+        name="@contactForm("address").name"
+        id="@contactForm("address").id"
+        value="@contactForm("address").value"
+        placeholder="Address">
+        <span class="help-block">@{contactForm("address").error.map {error => error.message}}</span>
+    </div>
+    
     <button type="submit" class="btn btn-default">Submit</button>
     }
 </div>
