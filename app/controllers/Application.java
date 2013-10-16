@@ -49,4 +49,14 @@ public class Application extends Controller {
       return ok(NewContact.render(formData));
     }
   }
+  
+  /**
+   * Delete a contact.
+   * @param id ID of contact to delete.
+   * @return Index page after deletion.
+   */
+  public static Result deleteContact(long id) {
+    ContactDB.deleteContact(id);
+    return ok(Index.render(ContactDB.getContacts()));
+  }
 }
