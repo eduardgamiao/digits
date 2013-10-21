@@ -1,7 +1,8 @@
-@(contactForm: Form[views.formdata.ContactFormData])
+@(contactForm: Form[views.formdata.ContactFormData],
+  telephoneTypeMap: Map[String, Boolean])
 
-@import helper._
 @import bootstrap3._
+@import helper._
 
 @Main("New Contact") {
 <div class="container">
@@ -29,6 +30,13 @@
         label = "Telephone",
         placeholder = "First Name",
         help = "Please enter your telephone in xxx-xxx-xxxx format. (required)")
+        
+          <!-- Telephone Type -->
+  @bootstrap3.select(contactForm("telephoneType"),
+          label = "Telephone Type",
+          optionMap = telephoneTypeMap,
+          isMultiple = false,
+          help = "")
 
 
    <!-- Address -->

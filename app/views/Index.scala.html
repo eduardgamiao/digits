@@ -8,6 +8,7 @@
       <td>First Name</td>
       <td>Last Name</td>
       <td>Telephone</td>
+      <td>Telephone Type</td>      
       <td>Address</td>
     </tr>
 
@@ -16,6 +17,7 @@
         <td>@Contact.getFirstName</td>
         <td>@Contact.getLastName</td>
         <td>@Contact.getTelephone</td>
+        <td>@Contact.getTelephoneType</td>
         <td>@Contact.getAddress</td>
         <td><a href="@routes.Application.newContact(Contact.getID())"><button type="submit" class="btn btn-default">Edit</button></a></td>
         <td><a href="@routes.Application.deleteContact(Contact.getID())"><button type="submit" class="btn btn-default">Delete</button></a></td>
