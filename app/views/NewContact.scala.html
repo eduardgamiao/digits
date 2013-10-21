@@ -25,18 +25,15 @@
         placeholder = "Last Name",
         help = "Please enter your last name. (required)")
 
-   <!-- Telephone -->
-  @text(contactForm("telephone"),
+   <!-- Telephone and Type -->
+  @telephone(contactForm("telephone"),
         label = "Telephone",
-        placeholder = "First Name",
-        help = "Please enter your telephone in xxx-xxx-xxxx format. (required)")
-        
-          <!-- Telephone Type -->
-  @bootstrap3.select(contactForm("telephoneType"),
-          label = "Telephone Type",
-          optionMap = telephoneTypeMap,
-          isMultiple = false,
-          help = "")
+        placeholder = "xxx-xxx-xxxx",
+        help = "Please enter your telephone in xxx-xxx-xxxx format. (required)",
+        typeLabel = "Telephone Type",
+        optionMap = telephoneTypeMap,
+        isMultiple = false,
+        typeHelp = "Hello")
 
 
    <!-- Address -->
