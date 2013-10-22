@@ -17,10 +17,11 @@ public class TelephoneType {
    * @return A mapping of types of telephones.
    */
   public static Map<String, Boolean> getTypes() {
-    Map<String, Boolean> telephoneMap = new HashMap<String, Boolean>();
+    Map<String, Boolean> telephoneMap = new HashMap<String, Boolean>();    
     for (String current : types) {
       telephoneMap.put(current, false);
-    } 
+    }
+    
     return telephoneMap;
   }
   
@@ -30,11 +31,11 @@ public class TelephoneType {
    * @return Types of telephones.
    */
   public static Map<String, Boolean> getTypes(String key) {
-    Map<String, Boolean> telephoneMap = TelephoneType.getTypes();
+    Map<String, Boolean> typeMap = TelephoneType.getTypes();
     if (isType(key)) {
-      telephoneMap.put(key, true);
+      typeMap.put(key, true);
     }
-    return telephoneMap;
+    return typeMap;
   }
   
   /**
@@ -43,7 +44,7 @@ public class TelephoneType {
    * @return True if the telephone type is valid, false otherwise.
    */
   public static boolean isType(String key) {
-    return TelephoneType.getTypes().containsKey(key);
+    return TelephoneType.getTypes().keySet().contains(key);
   }
 
 }
