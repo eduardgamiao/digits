@@ -27,7 +27,7 @@ public class Contact {
     this.lastName = lastName;
     this.telephone = telephone;
     this.telephoneType = telephoneType;
-    this.setAddress(address);
+    this.address = address;
   }
 
   /**
