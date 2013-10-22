@@ -28,6 +28,9 @@ public class ContactFormData {
   /** Address. */
   public String address = "";
   
+  /** Telephone type. */
+  public String telephoneType = "";
+  
   /**
    * Constructor.
    */
@@ -45,6 +48,7 @@ public class ContactFormData {
     this.lastName = contact.getLastName();
     this.telephone = contact.getTelephone();
     this.address = contact.getAddress();
+    this.telephoneType = contact.getTelephoneType();
   }
 
   /**
@@ -72,6 +76,9 @@ public class ContactFormData {
     }
     if (address.length() < ADDRESS_LENGTH) {
       errors.add(new ValidationError("address", "Address must be at least 25 characters."));
+    }
+    if (!TelephoneTypes.isType(telephoneType)) {
+      errors.add(new ValidationError("telephoneType", "Telephone type " + telephoneType + " is not valid")); 
     }
 
     return errors.isEmpty() ? null : errors;

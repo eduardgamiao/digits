@@ -9,6 +9,7 @@ public class Contact {
   private String telephone;
   private Long id;
   private String address;
+  private String telephoneType;
   
   /**
    * Constructor.
@@ -17,13 +18,16 @@ public class Contact {
    * @param lastName Last name.
    * @param telephone Telephone.
    * @param address Address.
+   * @param telephoneType Telephone type.
    */
-  public Contact(long id, String firstName, String lastName, String telephone, String address) {
+  public Contact(long id, String firstName, String lastName, String telephone, String address,
+                 String telephoneType) {
     this.setID(id);
     this.firstName = firstName;
     this.lastName = lastName;
     this.telephone = telephone;
-    this.setAddress(address);
+    this.address = address;
+    this.telephoneType = telephoneType;
   }
 
   /**
@@ -104,5 +108,21 @@ public class Contact {
    */
   public void setAddress(String address) {
     this.address = address;
+  }
+
+  /**
+   * Return the telephone type.
+   * @return The telephone type.
+   */
+  public String getTelephoneType() {
+    return telephoneType;
+  }
+
+  /**
+   * Set telephone type.
+   * @param telephoneType The telephone type to be set.
+   */
+  public void setTelephoneType(String telephoneType) {
+    this.telephoneType = telephoneType;
   }
 }

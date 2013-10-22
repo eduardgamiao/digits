@@ -5,10 +5,11 @@
   <h1>Contacts</h1>
   <table class="table table-bordered">
     <tr>
-      <td>First Name</td>
-      <td>Last Name</td>
-      <td>Telephone</td>
-      <td>Address</td>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Telephone</th>
+      <th>Telephone Type</th>
+      <th>Address</th>
     </tr>
 
       @for(Contact <- contacts) {
@@ -16,6 +17,7 @@
         <td>@Contact.getFirstName</td>
         <td>@Contact.getLastName</td>
         <td>@Contact.getTelephone</td>
+        <td>@Contact.getTelephoneType</td>
         <td>@Contact.getAddress</td>
         <td><a href="@routes.Application.newContact(Contact.getID())"><button type="submit" class="btn btn-default">Edit</button></a></td>
         <td><a href="@routes.Application.deleteContact(Contact.getID())"><button type="submit" class="btn btn-default">Delete</button></a></td>
