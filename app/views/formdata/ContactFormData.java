@@ -39,6 +39,21 @@ public class ContactFormData {
   }
   
   /**
+   * @param firstName First name.
+   * @param lastName Last Name.
+   * @param telephone Telephone.
+   * @param address Address.
+   * @param telephoneType Telephone type.
+   */
+  public ContactFormData(String firstName, String lastName, String telephone, String address, String telephoneType) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.telephone = telephone;
+    this.address = address;
+    this.telephoneType = telephoneType;
+  }
+
+  /**
    * Constructor.
    * @param contact Contact to be stored in DB.
    */
