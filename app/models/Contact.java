@@ -1,5 +1,7 @@
 package models;
 
+import java.util.List;
+
 /**
  * A contact model from the form data.
  */
@@ -10,28 +12,33 @@ public class Contact {
   private Long id;
   private String address;
   private String telephoneType;
-  
+  private List<String> hobbies;
+
   /**
    * Constructor.
+   * 
    * @param id ID.
    * @param firstName First name.
    * @param lastName Last name.
    * @param telephone Telephone.
    * @param address Address.
    * @param telephoneType Telephone type.
+   * @param hobbies List of hobbies.
    */
-  public Contact(long id, String firstName, String lastName, String telephone, String address,
-                 String telephoneType) {
+  public Contact(long id, String firstName, String lastName, String telephone, String address, String telephoneType,
+      List<String> hobbies) {
     this.setID(id);
     this.firstName = firstName;
     this.lastName = lastName;
     this.telephone = telephone;
     this.address = address;
     this.telephoneType = telephoneType;
+    this.hobbies = hobbies;
   }
 
   /**
    * Get first name.
+   * 
    * @return The first name.
    */
   public String getFirstName() {
@@ -40,6 +47,7 @@ public class Contact {
 
   /**
    * Set first name.
+   * 
    * @param firstName Name to be set to.
    */
   public void setFirstName(String firstName) {
@@ -48,6 +56,7 @@ public class Contact {
 
   /**
    * Get last name.
+   * 
    * @return The last name.
    */
   public String getLastName() {
@@ -56,6 +65,7 @@ public class Contact {
 
   /**
    * Set last name.
+   * 
    * @param lastName The last name to be set to.
    */
   public void setLastName(String lastName) {
@@ -64,6 +74,7 @@ public class Contact {
 
   /**
    * Get telephone.
+   * 
    * @return The telephone.
    */
   public String getTelephone() {
@@ -72,6 +83,7 @@ public class Contact {
 
   /**
    * Set telephone.
+   * 
    * @param telephone Telephone number to be set to.
    */
   public void setTelephone(String telephone) {
@@ -80,6 +92,7 @@ public class Contact {
 
   /**
    * Return ID.
+   * 
    * @return The ID.
    */
   public Long getID() {
@@ -88,6 +101,7 @@ public class Contact {
 
   /**
    * Set the ID.
+   * 
    * @param id ID to be set.
    */
   public void setID(Long id) {
@@ -96,6 +110,7 @@ public class Contact {
 
   /**
    * Return the address.
+   * 
    * @return The address.
    */
   public String getAddress() {
@@ -104,6 +119,7 @@ public class Contact {
 
   /**
    * Set the address.
+   * 
    * @param address The address to set to.
    */
   public void setAddress(String address) {
@@ -112,6 +128,7 @@ public class Contact {
 
   /**
    * Return the telephone type.
+   * 
    * @return The telephone type.
    */
   public String getTelephoneType() {
@@ -120,9 +137,29 @@ public class Contact {
 
   /**
    * Set telephone type.
+   * 
    * @param telephoneType The telephone type to be set.
    */
   public void setTelephoneType(String telephoneType) {
     this.telephoneType = telephoneType;
+  }
+
+  /**
+   * Return a array of hobbies.
+   * 
+   * @return An string of hobbies.
+   */
+  public String getHobbies() {
+    String output = "";
+    for (String current : hobbies) {
+      if (hobbies.get(hobbies.size() - 1).equalsIgnoreCase(current)) {
+        output += current;
+      }
+      else {
+        output += current + "/";
+      }
+    }
+
+    return output;
   }
 }

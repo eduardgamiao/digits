@@ -1,5 +1,6 @@
 @(contactForm: Form[views.formdata.ContactFormData],
-  telephoneTypeMap: Map[String, Boolean])
+  telephoneTypeMap: Map[String, Boolean],
+  hobbies: Map[String, Boolean])
 
 @import helper._
 @import bootstrap3._
@@ -35,7 +36,13 @@
         label = "Address",
         placeholder = "Address",
         help = "")
-    
+
+   <!-- Hobbies -->
+  @checkboxes(contactForm("hobbies"),
+              label = "Hobbies",
+              checkboxMap = hobbies,
+              help = "Check zero or more hobbies. (optional)")
+                  
     <button type="submit" class="btn btn-default col-sm-offset-2 col-sm-2">Submit</button>
     <br />
     }

@@ -24,14 +24,14 @@ public class ContactDB {
       long id = contacts.size() + 1;
       contact =
           new Contact(id, dataForm.firstName, dataForm.lastName, dataForm.telephone, dataForm.address,
-              dataForm.telephoneType);
+              dataForm.telephoneType, dataForm.hobbies);
       contacts.put(id, contact);
       return contact;
     }
     else {
       contact =
           new Contact(dataForm.id, dataForm.firstName, dataForm.lastName, dataForm.telephone, dataForm.address,
-              dataForm.telephoneType);
+              dataForm.telephoneType, dataForm.hobbies);
       contacts.put(contact.getID(), contact);
       return contact;
     }

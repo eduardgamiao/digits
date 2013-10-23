@@ -31,6 +31,9 @@ public class ContactFormData {
   /** Telephone type. */
   public String telephoneType = "";
   
+  /** List of hobbies. */
+  public List<String> hobbies = new ArrayList<String>();
+  
   /**
    * Constructor.
    */

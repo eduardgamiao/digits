@@ -6,6 +6,7 @@ import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.formdata.ContactFormData;
+import views.formdata.HobbyType;
 import views.formdata.TelephoneTypes;
 import views.html.Index;
 import views.html.NewContact;
@@ -32,8 +33,9 @@ public class Application extends Controller {
   public static Result newContact(long id) {
     ContactFormData data = (id == 0) ? new ContactFormData() : new ContactFormData(ContactDB.getContact(id));
     Form<ContactFormData> formData = Form.form(ContactFormData.class).fill(data);
-    Map<String, Boolean> telephoneTypeMap = TelephoneTypes.getTypes(data.telephoneType);    
-    return ok(NewContact.render(formData, telephoneTypeMap));
+    Map<String, Boolean> telephoneTypeMap = TelephoneTypes.getTypes(data.telephoneType);   
+    Map<String, Boolean> hobbyTypeMap = HobbyType.getTypes(data.hobbies);  
+    return ok(NewContact.render(formData, telephoneTypeMap, hobbyTypeMap));
   }
 
   /**
@@ -45,13 +47,15 @@ public class Application extends Controller {
     Form<ContactFormData> formData = Form.form(ContactFormData.class).bindFromRequest();
     if (formData.hasErrors()) {
       Map<String, Boolean> telephoneTypeMap = TelephoneTypes.getTypes();
-      return badRequest(NewContact.render(formData, telephoneTypeMap));
+      Map<String, Boolean> hobbyTypeMap = HobbyType.getTypes();
+      return badRequest(NewContact.render(formData, telephoneTypeMap, hobbyTypeMap));
     }
     else {
       ContactFormData form = formData.get();
       ContactDB.addContact(form);
-      Map<String, Boolean> telephoneTypeMap = TelephoneTypes.getTypes(form.telephoneType);      
-      return ok(NewContact.render(formData, telephoneTypeMap));
+      Map<String, Boolean> telephoneTypeMap = TelephoneTypes.getTypes(form.telephoneType);  
+      Map<String, Boolean> hobbyTypeMap = HobbyType.getTypes(form.hobbies);
+      return ok(NewContact.render(formData, telephoneTypeMap, hobbyTypeMap));
     }
   }
   
