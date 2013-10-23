@@ -23,19 +23,12 @@
         label = "Last Name",
         placeholder = "Last Name",
         help = "")
-
-   <!-- Telephone -->
-  @text(contactForm("telephone"),
-        label = "Telephone",
-        placeholder = "xxx-xxx-xxxx",
-        help = "")
-        
-  <!-- Telephone Type -->
-  @bootstrap3.select(contactForm("telephoneType"),
-          label = "Telephone Type",
+          
+  <!-- Telephone and Type -->
+  @telephone(contactForm("telephone"), 
+          contactForm("telephoneType"),
           optionMap = telephoneTypeMap,
-          isMultiple = false,
-          help = "")        
+          isMultiple = false)        
     
    <!-- Address -->
   @text(contactForm("address"),
