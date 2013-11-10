@@ -1,0 +1,41 @@
+@(contactForm: Form[views.formdata.ContactFormData],
+  telephoneTypeMap: Map[String, Boolean])
+
+@import helper._
+@import bootstrap3._
+
+@Main("New Contact") {
+<div class="container">
+    @form(routes.Application.postContact(), 'class -> "form-horizontal") {
+  <!-- ID -->
+  @hidden(contactForm("id"))
+    
+   <!-- First Name -->
+  @text(contactForm("firstName"),
+        label = "First Name",
+        placeholder = "First Name",
+        help = "")
+
+   <!-- Last Name -->
+  @text(contactForm("lastName"),
+        label = "Last Name",
+        placeholder = "Last Name",
+        help = "")
+          
+  <!-- Telephone and Type -->
+  @telephone(contactForm("telephone"), 
+          contactForm("telephoneType"),
+          optionMap = telephoneTypeMap,
+          isMultiple = false)        
+    
+   <!-- Address -->
+  @text(contactForm("address"),
+        label = "Address",
+        placeholder = "Address",
+        help = "")
+    
+    <button type="submit" class="btn btn-default col-sm-offset-2 col-sm-2">Submit</button>
+    <br />
+    }
+</div> 
+}
