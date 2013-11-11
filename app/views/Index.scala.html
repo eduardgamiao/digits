@@ -1,6 +1,7 @@
-@(contacts: List[Contact]) 
+@(contacts: List[Contact], isLoggedIn: Boolean, userInfo: UserInfo) 
 
-@Main("Digits") {
+@Main("Digits", isLoggedIn, userInfo) {
+@if(isLoggedIn) {
 <div class="container">
   <h1>Contacts</h1>
   <table class="table table-bordered">
@@ -26,4 +27,5 @@
 
   </table>
 </div>
+}
 }
