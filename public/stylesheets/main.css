@@ -3,3 +3,8 @@
 	height: 200px;
 	background-size: cover;
 }
+
+.navbar-text {
+	margin-top: 19px;
+	margin-bottom: 13px;
+}
