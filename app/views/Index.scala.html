@@ -14,7 +14,8 @@
     </tr>
 
       @for(Contact <- contacts) {
-      <tr>
+       @if(userInfo.getName().equals(Contact.getFirstName + " " + Contact.getLastName())) {
+       <tr>
         <td>@Contact.getFirstName</td>
         <td>@Contact.getLastName</td>
         <td>@Contact.getTelephone</td>
@@ -22,7 +23,8 @@
         <td>@Contact.getAddress</td>
         <td><a href="@routes.Application.newContact(Contact.getID())"><button type="submit" class="btn btn-default">Edit</button></a></td>
         <td><a href="@routes.Application.deleteContact(Contact.getID())"><button type="submit" class="btn btn-default">Delete</button></a></td>
-      </tr>
+        </tr>
+        }
       }
 
   </table>
