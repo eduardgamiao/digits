@@ -1,9 +1,36 @@
-@(page: String, isLoggedIn: Boolean, userInfo: UserInfo, loginForm: Form[views.formdata.LoginFormData])
+@(page: String, isLoggedIn: Boolean, userInfo: UserInfo, loginForm: Form[views.formdata.LoginFormData], 
+  registrationForm: Form[views.formdata.RegistrationFormData])
 
 @import bootstrap3._
+@import helper._
 
 @Main(page, isLoggedIn, userInfo) {
    <div class="container">
+    <div class="row">
+
      @loginform(routes.Application.postLogin(), loginForm("email"), loginForm("password"))
+     @form(routes.Application.postRegistration(), 'class -> "form-horizontal") {
+      
+         <!-- Name -->
+        @text(registrationForm("name"),
+         label = "Name",
+         placeholder = "Name",
+         help = "")
+
+         <!-- Email -->
+        @text(registrationForm("email"),
+         label = "Email",
+         placeholder = "Email",
+         help = "")
+
+         <!-- Password -->
+        @text(registrationForm("password"),
+         label = "Password",
+         placeholder = "Password",
+         help = "")
+         
+       <button type="submit" class="btn btn-default col-sm-offset-2 col-sm-2">Submit</button>
+      }
+    </div>
    </div>
 }
