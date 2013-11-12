@@ -3,8 +3,6 @@ package test;
 import static org.fest.assertions.Assertions.assertThat;
 import static play.test.Helpers.contentAsString;
 import static play.test.Helpers.contentType;
-import java.util.List;
-import models.Contact;
 import org.junit.Test;
 import play.mvc.Content;
 
@@ -30,8 +28,7 @@ public class ApplicationTest {
    */
   @Test
   public void renderTemplate() {
-    List<Contact> list = null;
-    Content html = views.html.Index.render(list);
+    Content html = views.html.Index.render(null, false, null, null);
     assertThat(contentType(html)).isEqualTo("text/html");
     assertThat(contentAsString(html)).contains("home page");
   }
