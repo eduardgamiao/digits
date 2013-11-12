@@ -3,6 +3,7 @@ package models;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import views.formdata.ContactFormData;
 
 /**
@@ -10,7 +11,7 @@ import views.formdata.ContactFormData;
  */
 public class ContactDB {
 
-  private static HashMap<Long, Contact> contacts = new HashMap<Long, Contact>();
+  private static Map<String, Map<Long, Contact>> contacts = new HashMap<String, Map<Long, Contact>>();
 
   /**
    * Add contact.
@@ -18,23 +19,17 @@ public class ContactDB {
    * @param dataForm Data form data.
    * @return The contact created.
    */
-  public static Contact addContact(ContactFormData dataForm) {
-    Contact contact;
-    if (dataForm.id == 0) {
-      long id = contacts.size() + 1;
-      contact =
-          new Contact(id, dataForm.firstName, dataForm.lastName, dataForm.telephone, dataForm.address,
-              dataForm.telephoneType);
-      contacts.put(id, contact);
-      return contact;
+  public static Contact addContact(String user, ContactFormData dataForm) {
+    long id = (dataForm.id == 0) ? contacts.size() + 1 : dataForm.id;
+    Contact contact = new Contact(id, dataForm.firstName, dataForm.lastName, 
+                                  dataForm.address, dataForm.telephone, dataForm.telephoneType);
+    
+    if(!contacts.containsKey(user)) {
+      contacts.put(user, new HashMap<Long, Contact>());
     }
-    else {
-      contact =
-          new Contact(dataForm.id, dataForm.firstName, dataForm.lastName, dataForm.telephone, dataForm.address,
-              dataForm.telephoneType);
-      contacts.put(contact.getID(), contact);
-      return contact;
-    }
+    
+    contacts.get(user).put(id, contact);
+    return contact;
   }
 
   /**
@@ -42,8 +37,20 @@ public class ContactDB {
    * 
    * @return List of contacts.
    */
-  public static List<Contact> getContacts() {
-    return new ArrayList<Contact>(contacts.values());
+  public static List<Contact> getContacts(String user) {
+    if (!isUser(user)) {
+      return null;
+    }
+    return new ArrayList<Contact>(contacts.get(user).values());
+  }
+  
+  /**
+   * Check if the user is a user.
+   * @param user User to check.
+   * @return True if the user exists, false otherwise. 
+   */
+  public static boolean isUser(String user) {
+    return contacts.containsKey(user);
   }
 
   /**
@@ -52,8 +59,11 @@ public class ContactDB {
    * @param id The ID to be matched.
    * @return The contact with the matching ID.
    */
-  public static Contact getContact(long id) {
-    Contact contact = contacts.get(id);
+  public static Contact getContact(String user, long id) {
+    if (!isUser(user)) {
+      throw new RuntimeException("User is not valid.");
+    }
+    Contact contact = contacts.get(user).get(id);
     if (contact == null) {
       throw new RuntimeException("Contact ID is not valid.");
     }
