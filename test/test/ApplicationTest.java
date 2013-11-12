@@ -31,7 +31,7 @@ public class ApplicationTest {
   @Test
   public void renderTemplate() {
     List<Contact> list = null;
-    Content html = views.html.Index.render(list);
+    Content html = views.html.Index.render(list, true, "john@doe.com");
     assertThat(contentType(html)).isEqualTo("text/html");
     assertThat(contentAsString(html)).contains("home page");
   }
