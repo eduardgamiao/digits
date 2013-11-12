@@ -3,6 +3,7 @@ package models;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import views.formdata.ContactFormData;
 
 /**
@@ -10,7 +11,7 @@ import views.formdata.ContactFormData;
  */
 public class ContactDB {
 
-  private static HashMap<Long, Contact> contacts = new HashMap<Long, Contact>();
+  private static Map<String, HashMap<Long, Contact>> contacts = new HashMap<String, HashMap<Long, Contact>>();
 
   /**
    * Add contact.
@@ -19,17 +20,8 @@ public class ContactDB {
    * @return The contact created.
    */
   public static Contact addContact(ContactFormData dataForm) {
-    Contact contact;
-    if (dataForm.id == 0) {
-      long id = contacts.size() + 1;
-      contact =
-          new Contact(id, dataForm.firstName, dataForm.lastName, dataForm.telephone, dataForm.address,
-              dataForm.telephoneType);
-      contacts.put(id, contact);
-      return contact;
-    }
-    else {
-      contact =
+      long id = (dataForm.id == 0) ? contacts.size() + 1 : dataForm.id;
+      Contact contact =
           new Contact(dataForm.id, dataForm.firstName, dataForm.lastName, dataForm.telephone, dataForm.address,
               dataForm.telephoneType);
       contacts.put(contact.getID(), contact);

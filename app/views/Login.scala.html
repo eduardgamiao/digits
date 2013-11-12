@@ -9,6 +9,12 @@
     <div class="row">
 
      @loginform(routes.Application.postLogin(), loginForm("email"), loginForm("password"))
+  <div class="col-sm-8 col-sm-offset-2">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Register New User</h3>
+        </div>
+        <div class="panel-body">
      @form(routes.Application.postRegistration(), 'class -> "form-horizontal") {
       
          <!-- Name -->
@@ -29,8 +35,11 @@
          placeholder = "Password",
          help = "")
          
-       <button type="submit" class="btn btn-default col-sm-offset-2 col-sm-2">Submit</button>
+       <button type="submit" class="btn btn-default col-sm-offset-2 col-sm-8">Submit</button>
       }
+      </div>
+      </div>
+      </div>
     </div>
    </div>
 }
