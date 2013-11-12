@@ -6,9 +6,9 @@ package models;
  */
 public class UserInfo {
  
-  private String name;
-  private String email;
-  private String password;
+  private String name = "";
+  private String email = "";
+  private String password = "";
   
   /**
    * Creates a new UserInfo instance.

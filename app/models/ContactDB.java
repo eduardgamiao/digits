@@ -38,8 +38,8 @@ public class ContactDB {
    * @return List of contacts.
    */
   public static List<Contact> getContacts(String user) {
-    if (!isUser(user)) {
-      return null;
+    if (user == "") {
+      return new ArrayList<>();
     }
     return new ArrayList<Contact>(contacts.get(user).values());
   }

@@ -26,11 +26,9 @@ public class Application extends Controller {
    * 
    * @return The resulting home page.
    */
-  @Security.Authenticated(Secured.class)
   public static Result index() {
-    UserInfo userInfo = UserInfoDB.getUser(request().username());
-    boolean isLoggedIn = (userInfo != null);
-    return ok(Index.render(ContactDB.getContacts(userInfo.getEmail()), isLoggedIn, userInfo));
+    String user = Secured.getUser(ctx());
+    return ok(Index.render(ContactDB.getContacts(user), Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
   }
 
   /**
@@ -40,13 +38,11 @@ public class Application extends Controller {
    */
   @Security.Authenticated(Secured.class)
   public static Result newContact(long id) {
-    UserInfo userInfo = UserInfoDB.getUser(request().username());
-    boolean isLoggedIn = (userInfo != null);
     ContactFormData data = (id == 0) ? new ContactFormData() 
-                                       : new ContactFormData(ContactDB.getContact(userInfo.getEmail(), id));
+    : new ContactFormData(ContactDB.getContact(Secured.getUserInfo(ctx()).getEmail(), id));
     Form<ContactFormData> formData = Form.form(ContactFormData.class).fill(data);
     Map<String, Boolean> telephoneTypeMap = TelephoneTypes.getTypes(data.telephoneType);
-    return ok(NewContact.render(formData, telephoneTypeMap, isLoggedIn, userInfo));
+    return ok(NewContact.render(formData, telephoneTypeMap, Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
   }
 
   /**
@@ -56,17 +52,17 @@ public class Application extends Controller {
    */
   public static Result postContact() {
     Form<ContactFormData> formData = Form.form(ContactFormData.class).bindFromRequest();
-    UserInfo userInfo = UserInfoDB.getUser(request().username());
-    boolean isLoggedIn = (userInfo != null);
     if (formData.hasErrors()) {
       Map<String, Boolean> telephoneTypeMap = TelephoneTypes.getTypes();
-      return badRequest(NewContact.render(formData, telephoneTypeMap, isLoggedIn, userInfo));
+      return badRequest(NewContact.render(formData, telephoneTypeMap, 
+          Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
     }
     else {
       ContactFormData form = formData.get();
-      ContactDB.addContact(userInfo.getEmail(), form);
+      ContactDB.addContact(Secured.getUserInfo(ctx()).getEmail(), form);
       Map<String, Boolean> telephoneTypeMap = TelephoneTypes.getTypes(form.telephoneType);
-      return ok(NewContact.render(formData, telephoneTypeMap, isLoggedIn, userInfo));
+      return ok(NewContact.render(formData, telephoneTypeMap, 
+          Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
     }
   }
   
@@ -76,10 +72,9 @@ public class Application extends Controller {
    * @return Index page after deletion.
    */
   public static Result deleteContact(long id) {
-    UserInfo userInfo = UserInfoDB.getUser(request().username());
-    boolean isLoggedIn = (userInfo != null);
     ContactDB.deleteContact(id);
-    return ok(Index.render(ContactDB.getContacts(userInfo.getEmail()), isLoggedIn, userInfo));
+    return ok(Index.render(ContactDB.getContacts(Secured.getUserInfo(ctx()).getEmail()), 
+        Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
   }
   
   /**
@@ -89,9 +84,7 @@ public class Application extends Controller {
   public static Result login() {
     Form<LoginFormData> loginFormData = Form.form(LoginFormData.class);
     Form<RegistrationFormData> registrationFormData = Form.form(RegistrationFormData.class);
-    UserInfo userInfo = UserInfoDB.getUser(request().username());
-    boolean isLoggedIn = (userInfo != null);
-    return ok(Login.render("Login", isLoggedIn, userInfo, 
+    return ok(Login.render("Login", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), 
               loginFormData, registrationFormData));
   }
 
@@ -109,12 +102,9 @@ public class Application extends Controller {
     Form<LoginFormData> loginFormData = Form.form(LoginFormData.class).bindFromRequest();
     Form<RegistrationFormData> registrationFormData = Form.form(RegistrationFormData.class).bindFromRequest();
     
-    UserInfo userInfo = UserInfoDB.getUser(request().username());
-    boolean isLoggedIn = (userInfo != null);
-    
     if (loginFormData.hasErrors()) {
       flash("error", "Login credentials not valid.");
-      return badRequest(Login.render("Login", isLoggedIn, userInfo, 
+      return badRequest(Login.render("Login", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()),
                         loginFormData, registrationFormData));
     }
     else {
@@ -138,10 +128,8 @@ public class Application extends Controller {
     Form<RegistrationFormData> registrationFormData = Form.form(RegistrationFormData.class).bindFromRequest();
     
     if (registrationFormData.hasErrors()) {
-      UserInfo userInfo = UserInfoDB.getUser(request().username());
-      boolean isLoggedIn = (userInfo != null);
       flash("error", "Registration error.");
-      return badRequest(Login.render("Login", isLoggedIn, userInfo, 
+      return badRequest(Login.render("Login", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()),
                         loginFormData, registrationFormData));     
     }
     else {
