@@ -6,6 +6,9 @@
 GET     /                           controllers.Application.index()
 GET     /newcontact                 controllers.Application.newContact(id: Long ?= 0)
 GET     /delete                     controllers.Application.deleteContact(id: Long)
+GET     /login                      controllers.Application.login()
+GET     /logout                      controllers.Application.logout()
+POST    /login                      controllers.Application.postLogin()
 POST    /newcontact                 controllers.Application.postContact()
 
 
