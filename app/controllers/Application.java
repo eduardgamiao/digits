@@ -2,6 +2,8 @@ package controllers;
 
 import java.util.Map;
 import models.ContactDB;
+import models.UserInfo;
+import models.UserInfoDB;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -24,8 +26,8 @@ public class Application extends Controller {
    * @return The resulting home page.
    */
   public static Result index() {
-    System.out.println(Secured.isLoggedIn(ctx()));
-    return ok(Index.render("Index", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), ContactDB.getContacts()));
+    return ok(Index.render("Index", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), 
+        ContactDB.getContacts(Secured.getUser(ctx()))));
   }
 
   /**
@@ -35,10 +37,12 @@ public class Application extends Controller {
    */
   @Security.Authenticated(Secured.class)
   public static Result newContact(long id) {
-    ContactFormData data = (id == 0) ? new ContactFormData() : new ContactFormData(ContactDB.getContact(id));
+    ContactFormData data = (id == 0) ? new ContactFormData() 
+      : new ContactFormData(ContactDB.getContact(Secured.getUser(ctx()), id));
     Form<ContactFormData> formData = Form.form(ContactFormData.class).fill(data);
     Map<String, Boolean> telephoneTypeMap = TelephoneTypes.getTypes(data.telephoneType);    
-    return ok(NewContact.render(formData, telephoneTypeMap, "New Contact", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
+    return ok(NewContact.render(formData, telephoneTypeMap, "New Contact", 
+        Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
   }
 
   /**
@@ -48,16 +52,18 @@ public class Application extends Controller {
    */
   @Security.Authenticated(Secured.class)
   public static Result postContact() {
-    Form<ContactFormData> formData = Form.form(ContactFormData.class).bindFromRequest();
+    Form<ContactFormData> formData = Form.form(ContactFormData.class).bindFromRequest(); 
     if (formData.hasErrors()) {
       Map<String, Boolean> telephoneTypeMap = TelephoneTypes.getTypes();
-      return badRequest(NewContact.render(formData, telephoneTypeMap, "New Contact", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
+      return badRequest(NewContact.render(formData, telephoneTypeMap, "New Contact", 
+          Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
     }
     else {
       ContactFormData form = formData.get();
-      ContactDB.addContact(form);
+      ContactDB.addContact(Secured.getUser(ctx()), form);
       Map<String, Boolean> telephoneTypeMap = TelephoneTypes.getTypes(form.telephoneType);      
-      return ok(NewContact.render(formData, telephoneTypeMap, "New Contact", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
+      return ok(NewContact.render(formData, telephoneTypeMap, "New Contact", 
+          Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx())));
     }
   }
   
@@ -69,7 +75,8 @@ public class Application extends Controller {
   @Security.Authenticated(Secured.class)
   public static Result deleteContact(long id) {
     ContactDB.deleteContact(id);
-    return ok(Index.render("Index", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), ContactDB.getContacts()));
+    return ok(Index.render("Index", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), 
+        ContactDB.getContacts(Secured.getUser(ctx()))));
   }
   
   /**
@@ -78,7 +85,7 @@ public class Application extends Controller {
    */
   public static Result login() {
     Form<LoginFormData> formData = Form.form(LoginFormData.class);
-    return ok(Login.render("Login", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), formData));
+    return ok(Login.render("Login", false, null, formData));
   }
 
   /**
@@ -96,7 +103,7 @@ public class Application extends Controller {
 
     if (formData.hasErrors()) {
       flash("error", "Login credentials not valid.");
-      return badRequest(Login.render("Login", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), formData));
+      return badRequest(Login.render("Login", false, null, formData));
     }
     else {
       // email/password OK, so now we set the session variable and only go to authenticated pages.
