@@ -6,4 +6,12 @@
    <div class="container">
      @loginform(routes.Application.postLogin(), loginForm("email"), loginForm("password"))
    </div>
+   
+   @if(!models.UserInfoDB.adminDefined()) {
+    <div class"container">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3 alert alert-danger"><p>Warning: Admin credentials not defined!!!</p></div>
+      </div>
+    </div>
+   }
 }
