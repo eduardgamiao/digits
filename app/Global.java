@@ -17,12 +17,12 @@ public class Global extends GlobalSettings {
    */
   public void onStart(Application app) {
     UserInfoDB.addUserInfo("John Smith", "smith@example.com", "password");
-    UserInfoDB.addUserInfo("Jane Doe", "doe@example.com", "password");
-    
     ContactDB.addContact("smith@example.com", 
         new ContactFormData("Eduard", "Smith", "111-111-1111", "1234567890123456789012345", "Home"));
     ContactDB.addContact("smith@example.com", 
         new ContactFormData("John", "Smith", "222-222-2222", "1234567890123456789012345", "Work"));
+    
+    UserInfoDB.addUserInfo("Jane Doe", "doe@example.com", "password");
     ContactDB.addContact("doe@example.com", 
         new ContactFormData("Jane", "Doe", "333-333-3333", "1234567890123456789012345", "Mobile"));
     ContactDB.addContact("doe@example.com", 
