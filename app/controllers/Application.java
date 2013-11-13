@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.Map;
 import models.ContactDB;
+import models.UserInfoDB;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -79,6 +80,7 @@ public class Application extends Controller {
    * @return The Login page. 
    */
   public static Result login() {
+    UserInfoDB.hasCredentials();
     Form<LoginFormData> formData = Form.form(LoginFormData.class);
     return ok(Login.render("Login", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), formData));
   }

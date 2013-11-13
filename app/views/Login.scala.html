@@ -6,4 +6,11 @@
    <div class="container">
      @loginform(routes.Application.postLogin(), loginForm("email"), loginForm("password"))
    </div>
+   @if(!UserInfoDB.hasCredentials()) {
+    <div class="container">
+      <div class="col-md-4 col-md-offset-4 alert alert-danger"><p><b>Warning!!!</b> No Administration Credentials Available!</p></div>
+    </div>
+   } else {
+   
+   }
 }
