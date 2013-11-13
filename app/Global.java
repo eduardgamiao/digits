@@ -16,8 +16,7 @@ public class Global extends GlobalSettings {
    * @param app An applcation.
    */
   public void onStart(Application app) {
-    UserInfoDB.addUserInfo("John Smith", "smith@example.com", "password");
-    UserInfoDB.addUserInfo("Jane Doe", "doe@example.com", "password");
+
     
     ContactDB.addContact("smith@example.com", 
         new ContactFormData("Eduard", "Smith", "111-111-1111", "1234567890123456789012345", "Home"));
