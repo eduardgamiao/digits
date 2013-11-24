@@ -1,12 +1,20 @@
 package models;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import play.db.ebean.Model;
+
 /**
  * A contact model from the form data.
  */
-public class Contact {
+@Entity
+public class Contact extends Model {
+  private static final long serialVersionUID = 1L;
+  
   private String firstName;
   private String lastName;
   private String telephone;
+  @Id
   private Long id;
   private String address;
   private String telephoneType;
@@ -124,5 +132,13 @@ public class Contact {
    */
   public void setTelephoneType(String telephoneType) {
     this.telephoneType = telephoneType;
+  }
+  
+  /**
+   * The EBean ORM finder method for database queries on ID.
+   * @return The finder method for products.
+   */
+  public static Finder<Long, Contact> find() {
+    return new Finder<Long, Contact>(Long.class, Contact.class);
   }
 }

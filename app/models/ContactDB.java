@@ -21,7 +21,7 @@ public class ContactDB {
    * @return The contact created.
    */
   public static Contact addContact(String email, ContactFormData dataForm) {
-    long id = (dataForm.id == 0) ? contacts.size() + 1 : dataForm.id;
+    long id = (dataForm.id == -1) ? contacts.size() + 1 : dataForm.id;
     Contact contact =
         new Contact(id, dataForm.firstName, dataForm.lastName, dataForm.telephone, dataForm.address,
             dataForm.telephoneType);

@@ -1,12 +1,18 @@
 package models;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import play.db.ebean.Model.Finder;
+
 /**
  * A simple representation of a user. 
  * @author Philip Johnson
  */
+@Entity
 public class UserInfo {
  
   private String name;
+  @Id
   private String email;
   private String password;
   
@@ -57,6 +63,14 @@ public class UserInfo {
    */
   public void setPassword(String password) {
     this.password = password;
+  }
+  
+  /**
+   * The EBean ORM finder method for database queries on emails.
+   * @return The finder method for products.
+   */
+  public static Finder<Long, UserInfo> find() {
+    return new Finder<Long, UserInfo>(Long.class, UserInfo.class);
   }
 
 }

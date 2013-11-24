@@ -34,7 +34,7 @@ public class Application extends Controller {
    * @return The newcontact.
    */
   public static Result newContact(long id) {
-    ContactFormData data = (id == 0) ? new ContactFormData() 
+    ContactFormData data = (id == -1) ? new ContactFormData() 
       : new ContactFormData(ContactDB.getContact(Secured.getUser(ctx()), id));
     Form<ContactFormData> formData = Form.form(ContactFormData.class).fill(data);
     Map<String, Boolean> telephoneTypeMap = TelephoneTypes.getTypes(data.telephoneType);    
