@@ -10,7 +10,7 @@ import views.formdata.ContactFormData;
  */
 public class Global extends GlobalSettings {
 
-  /**
+  /** 
    * Defines an initialization method.
    * @param app An application.
    */
