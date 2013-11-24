@@ -7,7 +7,7 @@ import views.formdata.ContactFormData;
 
 /**
  * Global class for Play Framework.
- */
+ */ 
 public class Global extends GlobalSettings {
 
   /**
