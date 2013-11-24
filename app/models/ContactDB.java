@@ -93,9 +93,12 @@ public class ContactDB {
    */
   public static void deleteContact(String email, long id) {
     UserInfo userInfo = UserInfo.find().where().eq("email", email).findUnique();
+    System.out.println(userInfo.getEmail());
     Contact contact = Contact.find().byId(id);
+    contact.setUserInfo(null);
     userInfo.getContacts().remove(contact);
     userInfo.save();
+    contact.delete();
   }
 
 }
