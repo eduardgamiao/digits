@@ -23,7 +23,7 @@ public class ContactFormData {
   public String telephone = "";
   
   /** ID number. */
-  public long id = 0;
+  public long id = -1;
   
   /** Address. */
   public String address = "";
