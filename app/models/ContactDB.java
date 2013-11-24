@@ -1,35 +1,43 @@
 package models;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import views.formdata.ContactFormData;
 
 /**
  * Stores a list of contacts in a data structure.
  */
 public class ContactDB {
-
-  private static Map<String, HashMap<Long, Contact>> contacts = new HashMap<String, HashMap<Long, Contact>>();
-
   /**
    * Add contact.
    * 
    * @param email The email of the user.
    * @param dataForm Data form data.
-   * @return The contact created.
    */
-  public static Contact addContact(String email, ContactFormData dataForm) {
-    long id = (dataForm.id == 0) ? contacts.size() + 1 : dataForm.id;
+  public static void addContact(String email, ContactFormData dataForm) {
+    // Check if contact is new.
+    boolean isNewContact = (dataForm.id == -1);
+    if (isNewContact) {
     Contact contact =
-        new Contact(id, dataForm.firstName, dataForm.lastName, dataForm.telephone, dataForm.address,
+        new Contact(dataForm.firstName, dataForm.lastName, dataForm.telephone, dataForm.address,
             dataForm.telephoneType);
-    if (!isUser(email)) {
-      contacts.put(email, new HashMap<Long, Contact>());
+    UserInfo userInfo = UserInfo.find().where().eq("email", email).findUnique();
+    if (userInfo == null) {
+      throw new RuntimeException("Could not find user: " + email);
     }
-    contacts.get(email).put(contact.getID(), contact);
-    return contact;
+    userInfo.addContact(contact);
+    contact.setUserInfo(userInfo);
+    userInfo.save();
+    contact.save();
+    }
+    else {
+      Contact contact = Contact.find().byId(dataForm.id);
+      contact.setFirstName(dataForm.firstName);
+      contact.setLastName(dataForm.lastName);
+      contact.setTelephone(dataForm.telephone);
+      contact.setTelephoneType(dataForm.telephoneType);
+      contact.setAddress(dataForm.address);
+      contact.save();
+    }
   }
 
   /**
@@ -39,7 +47,7 @@ public class ContactDB {
    * @return True if the user is in the database, false otherwise.
    */
   public static boolean isUser(String email) {
-    return contacts.containsKey(email);
+    return (UserInfo.find().where().eq("email", email).findUnique() != null);
   }
 
   /**
@@ -48,10 +56,13 @@ public class ContactDB {
    * @return List of contacts.
    */
   public static List<Contact> getContacts(String email) {
-    if (!isUser(email)) {
+    UserInfo userInfo = UserInfo.find().where().eq("email", email).findUnique();
+    if (userInfo == null) {
       return null;
     }
-    return new ArrayList<Contact>(contacts.get(email).values());
+    else {
+      return userInfo.getContacts();
+    }
   }
 
   /**
@@ -61,12 +72,13 @@ public class ContactDB {
    * @return The contact with the matching ID.
    */
   public static Contact getContact(String email, long id) {
-    if (!isUser(email)) {
-      throw new RuntimeException("User is not valid.");      
-    }
-    Contact contact = contacts.get(email).get(id);
+    Contact contact = Contact.find().byId(id);    
     if (contact == null) {
-      throw new RuntimeException("Contact ID is not valid.");
+      throw new RuntimeException("Contact not found.");      
+    }
+    UserInfo userInfo = contact.getUserInfo();
+    if (!email.equals(userInfo.getEmail())) {
+      throw new RuntimeException("Email does not match Contact email.");
     }
     else {
       return contact;
@@ -79,7 +91,12 @@ public class ContactDB {
    * @param id ID of contact.
    */
   public static void deleteContact(String email, long id) {
-    contacts.get(email).remove(id);
+    UserInfo userInfo = UserInfo.find().where().eq("email", email).findUnique();
+    Contact contact = Contact.find().byId(id);
+    userInfo.getContacts().remove(contact);
+    contact.setUserInfo(null);
+    userInfo.save();
+    contact.delete();
   }
 
 }
