@@ -19,7 +19,7 @@ public class UserInfoDB {
       userInfo.setAdmin(true);
       userInfo.save();
     }
-  }
+  } 
   
   /**
    * Return true if admin is defined.
