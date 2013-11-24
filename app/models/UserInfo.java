@@ -1,7 +1,9 @@
 package models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import play.db.ebean.Model.Finder;
 
 /**
@@ -10,11 +12,16 @@ import play.db.ebean.Model.Finder;
  */
 @Entity
 public class UserInfo {
+  private static final long serialVersionUID = 1L;
  
   private String name;
-  @Id
   private String email;
   private String password;
+  @Id
+  private Long id;
+  
+  @OneToMany(mappedBy = "userInfo", cascade = CascadeType.PERSIST)
+  private Contact contact;
   
   /**
    * Creates a new UserInfo instance.
@@ -72,5 +79,6 @@ public class UserInfo {
   public static Finder<Long, UserInfo> find() {
     return new Finder<Long, UserInfo>(Long.class, UserInfo.class);
   }
+  
 
 }

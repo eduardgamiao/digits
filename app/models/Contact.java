@@ -2,6 +2,7 @@ package models;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import play.db.ebean.Model;
 
 /**
@@ -18,6 +19,9 @@ public class Contact extends Model {
   private Long id;
   private String address;
   private String telephoneType;
+  
+  @ManyToOne
+  private UserInfo userInfo;
   
   /**
    * Constructor.

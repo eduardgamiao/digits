@@ -16,7 +16,9 @@ public class Global extends GlobalSettings {
    */
   public void onStart(Application app) {
     String adminEmail = Play.application().configuration().getString("admin.email");
-    String adminPassword = Play.application().configuration().getString("admin.password");    
+    String adminPassword = Play.application().configuration().getString("admin.password"); 
+    
+    System.out.println(adminEmail + " " + adminPassword);
     
     UserInfoDB.defineAdmin("Admin", adminEmail, adminPassword);
     

@@ -1,6 +1,5 @@
 package models;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,10 +24,7 @@ public class ContactDB {
     Contact contact =
         new Contact(id, dataForm.firstName, dataForm.lastName, dataForm.telephone, dataForm.address,
             dataForm.telephoneType);
-    if (!isUser(email)) {
-      contacts.put(email, new HashMap<Long, Contact>());
-    }
-    contacts.get(email).put(contact.getID(), contact);
+      Contact.find().all().add(contact);
     return contact;
   }
 
@@ -39,7 +35,7 @@ public class ContactDB {
    * @return True if the user is in the database, false otherwise.
    */
   public static boolean isUser(String email) {
-    return contacts.containsKey(email);
+    return Contact.find().all().equals(email);
   }
 
   /**
@@ -51,7 +47,7 @@ public class ContactDB {
     if (!isUser(email)) {
       return null;
     }
-    return new ArrayList<Contact>(contacts.get(email).values());
+    return Contact.find().select(email).findList();
   }
 
   /**
@@ -64,7 +60,7 @@ public class ContactDB {
     if (!isUser(email)) {
       throw new RuntimeException("User is not valid.");      
     }
-    Contact contact = contacts.get(email).get(id);
+    Contact contact = Contact.find().select(email).findUnique();
     if (contact == null) {
       throw new RuntimeException("Contact ID is not valid.");
     }
@@ -79,7 +75,7 @@ public class ContactDB {
    * @param id ID of contact.
    */
   public static void deleteContact(String email, long id) {
-    contacts.get(email).remove(id);
+    Contact.find().all().remove(email);
   }
 
 }
