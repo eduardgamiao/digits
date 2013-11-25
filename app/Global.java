@@ -18,9 +18,9 @@ public class Global extends GlobalSettings {
     String adminEmail = Play.application().configuration().getString("admin.email");
     String adminPassword = Play.application().configuration().getString("admin.password");    
     
-    UserInfoDB.defineAdmin("Admin", adminEmail, adminPassword);
+    UserInfoDB.defineAdmin("Administrator", adminEmail, adminPassword);
     
-    if (UserInfoDB.adminDefined()) {
+    if (UserInfoDB.adminDefined() && UserInfoDB.getUser(adminEmail).getContacts().isEmpty()) {
       ContactDB.addContact(adminEmail, 
           new ContactFormData("Eduard", "Smith", "111-111-1111", "1234567890123456789012345", "Home"));
       ContactDB.addContact(adminEmail, 
