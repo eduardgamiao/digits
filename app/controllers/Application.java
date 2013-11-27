@@ -45,7 +45,7 @@ public class Application extends Controller {
   /**
    * Returns new contact, a page for new contacts.
    * 
-   * @return The newcontact.
+   * @return The New Contact page.
    */
   public static Result postContact() {
     Form<ContactFormData> formData = Form.form(ContactFormData.class).bindFromRequest();
