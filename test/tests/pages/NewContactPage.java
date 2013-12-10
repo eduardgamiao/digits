@@ -1,11 +1,7 @@
-package test.pages;
+package tests.pages;
 
 import org.fluentlenium.core.FluentPage;
 import org.openqa.selenium.WebDriver;
-import play.Play;
-// Although Eclipse marks the following two methods as deprecated, 
-// the no-arg versions of the methods used here are not deprecated.  (as of May, 2013).
-import static org.fluentlenium.core.filter.FilterConstructor.withText; 
 import static org.fluentlenium.core.filter.FilterConstructor.withId;  
 import static org.fest.assertions.Assertions.assertThat;
 
@@ -36,7 +32,14 @@ public class NewContactPage extends FluentPage {
     assertThat(title()).isEqualTo("digits: New");
   }
   
-  
+  /**
+   * Make a new contact.
+   * @param firstName First name.
+   * @param lastName Last name.
+   * @param telephone Telephone.
+   * @param type Type.
+   * @param address Address.
+   */
   public void makeContact(String firstName, String lastName, String telephone, String type, String address) {
     fill("#firstName").with(firstName);
     fill("#lastName").with(lastName);

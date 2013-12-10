@@ -9,9 +9,9 @@ import static play.test.Helpers.testServer;
 import org.junit.Test;
 import play.libs.F.Callback;
 import play.test.TestBrowser;
-import test.pages.IndexPage;
-import test.pages.LoginPage;
-import test.pages.NewContactPage;
+import tests.pages.IndexPage;
+import tests.pages.LoginPage;
+import tests.pages.NewContactPage;
 
 /**
  * Integration tests running on an instance of the application.
@@ -42,6 +42,7 @@ public class IntegrationTest {
       public void invoke(TestBrowser browser) {
         IndexPage indexPage = new IndexPage(browser.getDriver(), PORT);
         browser.goTo(indexPage);
+        System.out.println(browser.pageSource());
         indexPage.isAt();
         indexPage.goToLogin();
         LoginPage loginPage = new LoginPage(browser.getDriver(), PORT);
