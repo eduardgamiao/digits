@@ -1,4 +1,4 @@
-package test;
+package tests;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static play.test.Helpers.HTMLUNIT;
