@@ -37,11 +37,11 @@ public class NewContactPage extends FluentPage {
   
   /**
    * Set the form to the passed values, then submit it.
-   * @param firstName
-   * @param lastName
-   * @param telephone
-   * @param telephoneType
-   * @param address
+   * @param firstName First name.
+   * @param lastName Last Name.
+   * @param telephone Telephone.
+   * @param telephoneType Telephone type.
+   * @param address Address.
    */
   public void makeContact(String firstName, String lastName, String telephone, String telephoneType, String address) {
     fill("#firstName").with(firstName);
